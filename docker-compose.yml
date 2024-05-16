@@ -2,16 +2,10 @@ services:
   node-red:
     image: nodered/node-red:latest
     environment:
-      - TZ=Europe/Amsterdam
+      - TZ=${NODERED_TZ:-Europe/Amsterdam}
+      - NODE_RED_USERNAME=${NODE_RED_USER:-admin}
+      - NODE_RED_PASSWORD=${NODE_RED_PASSWORD:-password}
     ports:
-      - "1880:1880"
-    networks:
-      - node-red-net
+      - ${NODERED_PORT:-1880}:1880
     volumes:
       - ./node-red:/data
-
-volumes:
-  node-red-data:
-
-networks:
-  node-red-net:

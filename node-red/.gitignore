@@ -1,3 +1,4 @@
 .npm/
 *.backup
 node_modules/
+.sessions.json
