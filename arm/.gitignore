@@ -3,3 +3,4 @@ Listings
 *.uv*
 *.scvd
 *.base*
+!HAN_CLOCK.uvprojx
