@@ -340,7 +340,7 @@
               <MiscControls>-Wno-gnu-binary-literal -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-declaration-after-statement -Wno-unsafe-buffer-usage</MiscControls>
               <Define>CLOCK_SETUP=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\firmwares\stepper;.\firmwares\uart0;.\firmwares\queue</IncludePath>
+              <IncludePath>.\src;.\firmwares\stepper;.\firmwares\uart0;.\firmwares\queue;.\firmwares\lcd</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -433,6 +433,21 @@
               <FileName>uart0.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\firmwares\uart0\uart0.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>firmwares/lcd</GroupName>
+          <Files>
+            <File>
+              <FileName>lcd_4bit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\firmwares\lcd\lcd_4bit.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_4bit.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\firmwares\lcd\lcd_4bit.h</FilePath>
             </File>
           </Files>
         </Group>
