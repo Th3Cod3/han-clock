@@ -1,5 +1,5 @@
 
-	/*! ***************************************************************************
+/*! ***************************************************************************
  *
  * \brief     Blinky
  * \file      main.c
@@ -31,135 +31,132 @@
  *
  *****************************************************************************/
 #include <MKL25Z4.h>
-#include <stdbool.h>
+#include <stepper.h>
 
-#define MASK(x) 		(1UL <<(x))
+
+#define STEPPER_SECONDS 	 1
+#define STEPPER_K_SECONDS	 2
+#define STEPPER_M_SECONDS  3
+#define STEPPER_G_SECONDS  4
+#define STEPPER_NO_STEPPER 5
+
+//int Stepper_On = STEPPER_NO_STEPPER;
+
+//#define MASK(x) (1UL << (x))
 // Local function prototypes
-//static void delay_us(uint32_t d);
+// static void delay_us(uint32_t d);
 /*!
  * \brief Main application
  */
- void Calibrate(void);
- 
- void PIT_IRQHandler(void)
- {
-		NVIC_ClearPendingIRQ(PIT_IRQn);
-	 if(PIT->CHANNEL[0].TFLG & PIT_TFLG_TIF_MASK){
-	 PIT->CHANNEL[0].TFLG |=PIT_TFLG_TIF_MASK;
-		 
-        PTE->PTOR = MASK(1);
-	 }
-	 else if(PIT->CHANNEL[1].TFLG & PIT_TFLG_TIF_MASK)
-	 {
-	 PIT->CHANNEL[1].TFLG |=PIT_TFLG_TIF_MASK;
-		 PTE->PTOR = MASK(1);
-	 }
-	 
- } 
+/*
+void PIT_IRQHandler(void)
+{
+	//static int count = 0;
+	NVIC_ClearPendingIRQ(PIT_IRQn);
+	if (PIT->CHANNEL[0].TFLG & PIT_TFLG_TIF_MASK)
+	{ // 1s timer
+		PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;
+		
+			GPIOE->PTOR = MASK(29);
+	}
+	else if (PIT->CHANNEL[1].TFLG & PIT_TFLG_TIF_MASK) // 100m timer
+	{
+		PIT->CHANNEL[1].TFLG |= PIT_TFLG_TIF_MASK;
+
+			GPIOE->PTOR = MASK(29);
+		switch (count)
+		{                                                                    
+		case 1:
+			GPIOE->PTOR = MASK(21);
+			break;
+
+		case 2:
+			GPIOE->PTOR = MASK(22);
+			break;
+
+		case 3:
+			GPIOE->PTOR = MASK(23);
+			break;
+
+		case 4:
+			GPIOE->PTOR = MASK(29);
+			count = 0;
+			break;
+		default:
+			count = 0;
+			break;
+		}
+		count++;
+	}
+}*/
+
+void Calibrate(void);
+void Sync(void);
 int main(void)
 {
+	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
+	SIM->SCGC5 |= SIM_SCGC5_PORTA_MASK;
+	SIM->SCGC5 |= SIM_SCGC5_PORTD_MASK;
 
-  SIM->SCGC5 |= SIM_SCGC5_PORTE(1) | SIM_SCGC5_PORTE(0);
-		PORTE -> PCR[1] = PORT_PCR_MUX(1);	//Step Steppermoter
-		PORTE -> PCR[0] = PORT_PCR_MUX(1)|PORT_PCR_PS(1)|PORT_PCR_PE(1);// Calibrate sensor
-		PORTE -> PCR[2] = PORT_PCR_MUX(1);	//Direction Stepper
-		GPIOE ->PDDR |= MASK(1) | MASK(2);	//Output
-		GPIOE ->PDDR &= ~MASK(0);	//Input
-	
-		//Enable clock to PIT modele
-		SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
-		
-		PIT->MCR &= ~PIT_MCR_MDIS_MASK;
-		PIT->MCR  |= PIT_MCR_FRZ_MASK;
-	
-	//Second timer
-		PIT->CHANNEL[0].LDVAL = PIT_LDVAL_TSV(12e6-1);	//Genrate an event evrey second
-		PIT->CHANNEL[0].TCTRL &= ~PIT_TCTRL_CHN_MASK;		//Disable chaining
-		PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TIE_MASK;		//Enable interups
-	
-	//100ms timer
-	PIT->CHANNEL[1].LDVAL = PIT_LDVAL_TSV((12e6/100)-1);	//Genrate an event evrey second
-		PIT->CHANNEL[1].TCTRL &= ~PIT_TCTRL_CHN_MASK;		//Disable chaining
-		PIT->CHANNEL[1].TCTRL |= PIT_TCTRL_TIE_MASK;		//Enable interups
-	
-		//Enable interups
-		NVIC_SetPriority(PIT_IRQn,1);
-		NVIC_ClearPendingIRQ(PIT_IRQn);
-		NVIC_EnableIRQ(PIT_IRQn);
-	
-		//Enable counters
-		PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TEN_MASK;
-       
-		PTE->PCOR = MASK(2);
+	PORTE->PCR[20] = PORT_PCR_MUX(0x1);
+	PORTE->PCR[21] = PORT_PCR_MUX(0x1);
+	PORTE->PCR[22] = PORT_PCR_MUX(0x1);
+	PORTE->PCR[23] = PORT_PCR_MUX(0x1);
+	PORTE->PCR[29] = PORT_PCR_MUX(0x1);
 	
 
+	PORTA->PCR[4] = PORT_PCR_MUX(0x1);
+	PORTA->PCR[5] = PORT_PCR_MUX(0x1);
+	PORTA->PCR[12] = PORT_PCR_MUX(0x1);
+	
+	PORTD->PCR[4] = PORT_PCR_MUX(0x1);
+
+	GPIOE->PDDR |= (1 << 20) | (1 << 21) | (1 << 22) | (1 << 23) | (1 << 29);
+	GPIOA ->PDDR &= ~(MASK(4) | MASK(5) | MASK(12));
+	GPIOD ->PDDR &= ~MASK(4);	
+	// PORTD -> PCR[4] = PORT_PCR_MUX(1);	//Step Steppermoter
+	// PORTE -> PCR[0] = PORT_PCR_MUX(1)|PORT_PCR_PS(1)|PORT_PCR_PE(1);// Calibrate sensor
+	// PORTC -> PCR[9] = PORT_PCR_MUX(1);	//Direction Stepper
+	// GPIOC ->PDDR |= MASK(9) | MASK(30);	//Output
+	// GPIOD ->PDDR |= MASK(4);	//Output
+
+	// Enable clock to PIT modele
+	SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
+
+	PIT->MCR &= ~PIT_MCR_MDIS_MASK;
+	PIT->MCR |= PIT_MCR_FRZ_MASK;
+
+	// 0.5 s timer
+	PIT->CHANNEL[0].LDVAL = PIT_LDVAL_TSV(12e6 - 1); // Genrate an event evrey second
+	PIT->CHANNEL[0].TCTRL &= ~PIT_TCTRL_CHN_MASK;	 // Disable chaining
+	PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TIE_MASK;	 // Enable interups
+
+	// 100ms timer
+	PIT->CHANNEL[1].LDVAL = PIT_LDVAL_TSV((12e6 / 10) - 1); // Genrate an event evrey second
+	PIT->CHANNEL[1].TCTRL &= ~PIT_TCTRL_CHN_MASK;			 // Disable chaining
+	PIT->CHANNEL[1].TCTRL |= PIT_TCTRL_TIE_MASK;			 // Enable interups
+
+	// Enable interups
+	NVIC_SetPriority(PIT_IRQn, 1);
+	NVIC_ClearPendingIRQ(PIT_IRQn);
+	NVIC_EnableIRQ(PIT_IRQn);
+
+	// Enable counters
+	//PIT->CHANNEL[1].TCTRL |= PIT_TCTRL_TEN_MASK;
+	
+  Stepper_On = STEPPER_NO_STEPPER;
+	count = 0;
+
+	// GPIOC_PSOR= MASK(9);
 
 	
-    while(1)
-    { 
-			/*for(int i = 0; i < 10;i++){
-        // Toggle the pin and wait
-        PTE->PTOR = MASK(0);
-        delay_us(20000);
-        PTE->PTOR = MASK(0);
-        delay_us(20000);
-			}
-
-        // Toggle the pin and wait
-        PTE->PTOR = MASK(0);
-        delay_us(300);
-        PTE->PTOR = MASK(0);
-        delay_us(300);*/
-			
-			if(!(PTE->PDIR & MASK(0))){
-			Calibrate();
-    }
+Set_Clock(15015015003);
+	while (1)
+	{
+		/*
+		if(!(PTD->PDIR & MASK(4))){
+	Calibrate();
+	
+		}*/
+	}
 }
-		}
-
-void Calibrate(void){
-	
-		while(!(PTE->PDIR & MASK(0))){}//Testfunction (release sensor)
-	
-	
-		PTE->PSOR = MASK(2);//Change direction to clockwise
-		PIT->CHANNEL[0].TCTRL &= ~PIT_TCTRL_TEN_MASK;//disabling 1 Sec counter
-		PIT->CHANNEL[1].TCTRL |= PIT_TCTRL_TEN_MASK;//enabling 100ms counter
-		while((PTE->PDIR & MASK(0))){}//wait for the home
-			
-		PIT->CHANNEL[1].TCTRL &= ~PIT_TCTRL_TEN_MASK;//disabling  1s counter
-		PTE->PCOR = MASK(2);//Change direction to counter clockwise
-		PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TEN_MASK;//disabling 100ms counter
-		while(!(PTE->PDIR & MASK(0))){}//Testfunction (release sensor)
-			
-}
-			
-/*!
- * \brief Creates a blocking delay
- *
- * Software delay of approximately 1.02 us, depending on compiler version,
- * CPU clock frequency and optimizations.
- * - C compiler: ARMClang v6
- * - Language C: gnu11
- * - CPU clock: 48 MHz
- * - Optimization level: -O3
- * - Link-Time Optimization: disabled
- *
- * \param[in]  d  delay in microseconds
- *
-static void delay_us(uint32_t d)
-{
-
-#if (CLOCK_SETUP != 1)
-#warning This delay function does not work as designed
-#endif
-
-    volatile uint32_t t;
-
-    for(t=4*d; t>0; t--)
-    {
-        __asm("nop");
-        __asm("nop");
-    }
-}
-*/
