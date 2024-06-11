@@ -142,15 +142,14 @@ int main(void)
 	NVIC_EnableIRQ(PIT_IRQn);
 
 	// Enable counters
-	//PIT->CHANNEL[1].TCTRL |= PIT_TCTRL_TEN_MASK;
+	PIT->CHANNEL[1].TCTRL |= PIT_TCTRL_TEN_MASK;
 	
   Stepper_On = STEPPER_NO_STEPPER;
 	count = 0;
 
 	// GPIOC_PSOR= MASK(9);
 
-	
-Set_Clock(15015015003);
+	Sync();
 	while (1)
 	{
 		/*

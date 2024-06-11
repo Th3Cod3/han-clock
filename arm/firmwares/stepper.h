@@ -12,7 +12,7 @@ extern volatile int count;
 
 extern volatile int Stepper_On;
  
-extern uint32_t Time;
+extern volatile uint64_t Time;
 
 void PIT_IRQHandler(void);
  
@@ -22,4 +22,6 @@ void Sync(void);
  
 void Set_Stepper_To(int Stepper, unsigned int Steps);
 
-void Set_Clock(uint64_t Minutes);
+void Set_Clock(uint64_t Seconds);
+
+void Add_time(uint64_t Current_time, uint64_t Add_seconds);
