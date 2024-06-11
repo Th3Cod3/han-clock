@@ -8,6 +8,9 @@
 #define STEPPER_G_SECONDS  4
 #define STEPPER_NO_STEPPER 5
 
+
+void Init_Steppers(void);
+
 extern volatile int count;
 
 extern volatile int Stepper_On;
