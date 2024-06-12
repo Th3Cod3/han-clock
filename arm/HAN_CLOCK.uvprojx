@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>HAN_CLOCK</OutputName>
+          <OutputName>HanClock</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -323,7 +323,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>2</wLevel>
+            <wLevel>1</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
@@ -337,10 +337,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Wno-gnu-binary-literal -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-declaration-after-statement -Wno-unsafe-buffer-usage</MiscControls>
+              <MiscControls>-Wno-gnu-binary-literal -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-declaration-after-statement -Wno-unsafe-buffer-usage -Wno-extra-semi-stmt</MiscControls>
               <Define>CLOCK_SETUP=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\firmwares</IncludePath>
+              <IncludePath>.\src;.\firmwares\stepper;.\firmwares\uart0;.\firmwares\queue;.\firmwares\lcd;.\firmwares\timer;.\libs</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -392,17 +392,92 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>firmwares</GroupName>
+          <GroupName>firmwares/stepper</GroupName>
           <Files>
             <File>
               <FileName>stepper.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\firmwares\stepper.c</FilePath>
+              <FilePath>.\firmwares\stepper\stepper.c</FilePath>
             </File>
             <File>
               <FileName>stepper.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\firmwares\stepper.h</FilePath>
+              <FilePath>.\firmwares\stepper\stepper.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>firmwares/queue</GroupName>
+          <Files>
+            <File>
+              <FileName>queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\firmwares\queue\queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>queue.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\firmwares\queue\queue.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>firmwares/uart0</GroupName>
+          <Files>
+            <File>
+              <FileName>uart0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\firmwares\uart0\uart0.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart0.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\firmwares\uart0\uart0.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>firmwares/lcd</GroupName>
+          <Files>
+            <File>
+              <FileName>lcd_4bit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\firmwares\lcd\lcd_4bit.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_4bit.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\firmwares\lcd\lcd_4bit.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>firmwares/timer</GroupName>
+          <Files>
+            <File>
+              <FileName>pit.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\firmwares\timer\pit.h</FilePath>
+            </File>
+            <File>
+              <FileName>pit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\firmwares\timer\pit.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>libs</GroupName>
+          <Files>
+            <File>
+              <FileName>clock_functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\libs\clock_functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>clock_functions.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\libs\clock_functions.h</FilePath>
             </File>
           </Files>
         </Group>
