@@ -21,7 +21,7 @@
         "rts": "none",
         "cts": "none",
         "dsr": "none",
-        "newline": "\\r",
+        "newline": "\\n",
         "bin": "false",
         "out": "char",
         "addchar": "\\n",
@@ -157,8 +157,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1090,
-        "y": 140,
+        "x": 1110,
+        "y": 160,
         "wires": []
     },
     {
@@ -177,63 +177,9 @@
         "y": 260,
         "wires": [
             [
-                "caceedcc56afffea",
-                "64a093924dcbeaa1"
+                "caceedcc56afffea"
             ]
         ]
-    },
-    {
-        "id": "c2742139b1493e15",
-        "type": "serial in",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "serial": "09b8bc23d7bb8d60",
-        "x": 450,
-        "y": 60,
-        "wires": [
-            [
-                "f256f9b077666f26",
-                "59a7f13a13e303ff"
-            ]
-        ]
-    },
-    {
-        "id": "64a093924dcbeaa1",
-        "type": "serial out",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "serial": "09b8bc23d7bb8d60",
-        "x": 1100,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "caceedcc56afffea",
-        "type": "ui_gauge",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "group": "0187d50eb9522ce0",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "gtype": "gage",
-        "title": "gauge",
-        "label": "units",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "10000",
-        "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "diff": false,
-        "className": "",
-        "x": 1070,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "f256f9b077666f26",
@@ -292,8 +238,8 @@
         "y": 160,
         "wires": [
             [
-                "64a093924dcbeaa1",
-                "d95dcac8c35c1820"
+                "d95dcac8c35c1820",
+                "1ac36e576c446e56"
             ]
         ]
     },
@@ -331,11 +277,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
+        "x": 700,
         "y": 40,
         "wires": []
     },
@@ -365,18 +311,6 @@
         ]
     },
     {
-        "id": "caba73782d64790b",
-        "type": "serial control",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "serial": "09b8bc23d7bb8d60",
-        "x": 460,
-        "y": 360,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "8134fccfb4e07ac5",
         "type": "inject",
         "z": "6766c019f9ae92fb",
@@ -397,7 +331,7 @@
         "y": 340,
         "wires": [
             [
-                "caba73782d64790b"
+                "d3ebf727cf213044"
             ]
         ]
     },
@@ -422,7 +356,7 @@
         "y": 400,
         "wires": [
             [
-                "caba73782d64790b"
+                "d3ebf727cf213044"
             ]
         ]
     },
@@ -442,7 +376,118 @@
         "y": 200,
         "wires": [
             [
-                "64a093924dcbeaa1"
+                "d95dcac8c35c1820",
+                "1ac36e576c446e56"
+            ]
+        ]
+    },
+    {
+        "id": "caceedcc56afffea",
+        "type": "ui_gauge",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "group": "0187d50eb9522ce0",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1070,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "9d1e061c772390cb",
+        "type": "inject",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "300",
+        "payloadType": "num",
+        "x": 870,
+        "y": 340,
+        "wires": [
+            [
+                "caceedcc56afffea"
+            ]
+        ]
+    },
+    {
+        "id": "6e9bd346f4819ed8",
+        "type": "serial in",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "serial": "09b8bc23d7bb8d60",
+        "x": 290,
+        "y": 40,
+        "wires": [
+            [
+                "2151f2b0759ee702"
+            ]
+        ]
+    },
+    {
+        "id": "d3ebf727cf213044",
+        "type": "serial control",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "serial": "09b8bc23d7bb8d60",
+        "x": 400,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1ac36e576c446e56",
+        "type": "serial out",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "serial": "09b8bc23d7bb8d60",
+        "x": 1120,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "2151f2b0759ee702",
+        "type": "function",
+        "z": "6766c019f9ae92fb",
+        "name": "Trim data",
+        "func": "msg.payload = msg.payload.trim();\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 40,
+        "wires": [
+            [
+                "f256f9b077666f26",
+                "59a7f13a13e303ff"
             ]
         ]
     }
