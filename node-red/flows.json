@@ -12,7 +12,7 @@
         "type": "serial-port",
         "name": "",
         "serialport": "/dev/ttyACM0",
-        "serialbaud": "9600",
+        "serialbaud": "230400",
         "databits": "8",
         "parity": "none",
         "stopbits": "1",
@@ -24,33 +24,27 @@
         "newline": "\\r",
         "bin": "false",
         "out": "char",
-        "addchar": "",
-        "responsetimeout": "10000"
-    },
-    {
-        "id": "28d214a9fa178b04",
-        "type": "ui_tab",
-        "name": "Home",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
+        "addchar": "\\n",
+        "responsetimeout": "1000"
     },
     {
         "id": "b19a411f3985c40e",
         "type": "ui_base",
         "theme": {
-            "name": "theme-light",
+            "name": "theme-dark",
             "lightTheme": {
                 "default": "#0094CE",
                 "baseColor": "#0094CE",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "darkTheme": {
                 "default": "#097479",
                 "baseColor": "#097479",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "customTheme": {
                 "name": "Untitled Theme 1",
@@ -60,44 +54,44 @@
             },
             "themeState": {
                 "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0094CE",
+                    "default": "#097479",
+                    "value": "#097479",
                     "edited": false
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
+                    "value": "#097479",
                     "edited": false
                 },
                 "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#1bbfff",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "widget-textColor": {
                     "value": "#111111",
                     "edited": false
                 },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
                 "widget-backgroundColor": {
-                    "value": "#0094ce",
+                    "value": "#097479",
                     "edited": false
                 },
                 "widget-borderColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "base-font": {
@@ -132,6 +126,14 @@
         }
     },
     {
+        "id": "28d214a9fa178b04",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
         "id": "0187d50eb9522ce0",
         "type": "ui_group",
         "name": "Default",
@@ -143,17 +145,55 @@
         "className": ""
     },
     {
+        "id": "d95dcac8c35c1820",
+        "type": "debug",
+        "z": "6766c019f9ae92fb",
+        "name": "UART_OUT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a6d4fa571099a3c5",
+        "type": "function",
+        "z": "6766c019f9ae92fb",
+        "name": "function 1",
+        "func": "msg.payload /= 10\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 260,
+        "wires": [
+            [
+                "caceedcc56afffea",
+                "64a093924dcbeaa1"
+            ]
+        ]
+    },
+    {
         "id": "c2742139b1493e15",
         "type": "serial in",
         "z": "6766c019f9ae92fb",
         "name": "",
         "serial": "09b8bc23d7bb8d60",
-        "x": 250,
-        "y": 80,
+        "x": 450,
+        "y": 60,
         "wires": [
             [
-                "d95dcac8c35c1820",
-                "a6d4fa571099a3c5"
+                "f256f9b077666f26",
+                "59a7f13a13e303ff"
             ]
         ]
     },
@@ -163,119 +203,8 @@
         "z": "6766c019f9ae92fb",
         "name": "",
         "serial": "09b8bc23d7bb8d60",
-        "x": 640,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "d758fc3caf8b93bf",
-        "type": "inject",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "g",
-        "payloadType": "str",
-        "x": 250,
-        "y": 240,
-        "wires": [
-            [
-                "64a093924dcbeaa1"
-            ]
-        ]
-    },
-    {
-        "id": "d95dcac8c35c1820",
-        "type": "debug",
-        "z": "6766c019f9ae92fb",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 680,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "acd1d5adf5810987",
-        "type": "inject",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "r",
-        "payloadType": "str",
-        "x": 250,
-        "y": 320,
-        "wires": [
-            [
-                "64a093924dcbeaa1"
-            ]
-        ]
-    },
-    {
-        "id": "713f9212931c10c5",
-        "type": "inject",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 220,
-        "y": 460,
-        "wires": [
-            [
-                "64a093924dcbeaa1"
-            ]
-        ]
-    },
-    {
-        "id": "d7780d30f27cd08d",
-        "type": "debug",
-        "z": "6766c019f9ae92fb",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 420,
+        "x": 1100,
+        "y": 180,
         "wires": []
     },
     {
@@ -302,27 +231,218 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 670,
-        "y": 620,
+        "x": 1070,
+        "y": 320,
         "wires": []
     },
     {
-        "id": "a6d4fa571099a3c5",
+        "id": "f256f9b077666f26",
+        "type": "switch",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ECHO",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "U.TM",
+                "vt": "str"
+            },
+            {
+                "t": "gte",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 670,
+        "y": 160,
+        "wires": [
+            [
+                "995ca156c560019b"
+            ],
+            [
+                "42bbe52e606bcd5a"
+            ],
+            [
+                "a6d4fa571099a3c5"
+            ]
+        ]
+    },
+    {
+        "id": "995ca156c560019b",
         "type": "function",
         "z": "6766c019f9ae92fb",
-        "name": "function 1",
-        "func": "msg.payload /= 10\nreturn msg;",
+        "name": "ACK",
+        "func": "msg.payload = \"ACK\";\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 560,
+        "x": 850,
+        "y": 160,
         "wires": [
             [
-                "caceedcc56afffea"
+                "64a093924dcbeaa1",
+                "d95dcac8c35c1820"
+            ]
+        ]
+    },
+    {
+        "id": "7c6af99f1d3dcb6f",
+        "type": "inject",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ECHO",
+        "payloadType": "str",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "f256f9b077666f26"
+            ]
+        ]
+    },
+    {
+        "id": "59a7f13a13e303ff",
+        "type": "debug",
+        "z": "6766c019f9ae92fb",
+        "name": "UART_IN",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "406cfb41487498df",
+        "type": "inject",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "U.TM",
+        "payloadType": "str",
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "f256f9b077666f26"
+            ]
+        ]
+    },
+    {
+        "id": "caba73782d64790b",
+        "type": "serial control",
+        "z": "6766c019f9ae92fb",
+        "name": "",
+        "serial": "09b8bc23d7bb8d60",
+        "x": 460,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8134fccfb4e07ac5",
+        "type": "inject",
+        "z": "6766c019f9ae92fb",
+        "name": "Enable",
+        "props": [
+            {
+                "p": "payload.enabled",
+                "v": "true",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "caba73782d64790b"
+            ]
+        ]
+    },
+    {
+        "id": "d203e0e9cb08b366",
+        "type": "inject",
+        "z": "6766c019f9ae92fb",
+        "name": "Disable",
+        "props": [
+            {
+                "p": "payload.enabled",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 400,
+        "wires": [
+            [
+                "caba73782d64790b"
+            ]
+        ]
+    },
+    {
+        "id": "42bbe52e606bcd5a",
+        "type": "function",
+        "z": "6766c019f9ae92fb",
+        "name": "Timestamp",
+        "func": "msg.payload = \"U.TM:\" + Date.now();\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 200,
+        "wires": [
+            [
+                "64a093924dcbeaa1"
             ]
         ]
     }
