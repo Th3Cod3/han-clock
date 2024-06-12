@@ -174,16 +174,16 @@ void lcd_wait_while_busy(void)
 
     do
     {
-        delay_us(10);
+        delay_us(1);
         SET_LCD_E(1);
-        delay_us(10);
+        delay_us(1);
 
         status = lcd_get_data() << 4;
 
         SET_LCD_E(0);
-        delay_us(10);
+        delay_us(1);
         SET_LCD_E(1);
-        delay_us(10);
+        delay_us(1);
 
         status |= lcd_get_data();
 
@@ -210,9 +210,9 @@ void lcd_write_4bit(const uint8_t c)
     SET_LCD_RW(0);
     SET_LCD_E(1);
     lcd_set_data(c);
-    delay_us(10);
+    delay_us(1);
     SET_LCD_E(0);
-    delay_us(10);
+    delay_us(1);
 }
 
 /*!

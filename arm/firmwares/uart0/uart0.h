@@ -33,13 +33,18 @@
 #define UART0_H
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <MKL25Z4.h>
 #include "queue.h"
+
+#define MAX_RECEIVE_CHARS 32
+#define UART0_BAUD_RATE 230400
 
 void uart0_init(void);
 uint32_t uart0_num_rx_chars_available(void);
 char uart0_get_char(void);
 void uart0_put_char(char c);
 void uart0_send_string(char *str);
+char* uart0_receive_string(char *str);
 
 #endif
