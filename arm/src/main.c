@@ -10,6 +10,7 @@ int main(void)
     uart0_init();
     lcd_init();
     pit_init();
+    stepper_init();
 
     lcd_clear();
     lcd_print("Connecting to");

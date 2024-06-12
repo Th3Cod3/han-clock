@@ -340,7 +340,7 @@
               <MiscControls>-Wno-gnu-binary-literal -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-declaration-after-statement -Wno-unsafe-buffer-usage -Wno-extra-semi-stmt</MiscControls>
               <Define>CLOCK_SETUP=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\firmwares\stepper;.\firmwares\uart0;.\firmwares\queue;.\firmwares\lcd;.\firmwares\timer;.\libs</IncludePath>
+              <IncludePath>.\src;.\drivers\stepper;.\drivers\uart0;.\drivers\lcd;.\drivers\timer;.\utils\queue;.\utils\clock</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -392,92 +392,92 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>firmwares/stepper</GroupName>
+          <GroupName>drivers/stepper</GroupName>
           <Files>
             <File>
               <FileName>stepper.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\firmwares\stepper\stepper.c</FilePath>
+              <FilePath>.\drivers\stepper\stepper.c</FilePath>
             </File>
             <File>
               <FileName>stepper.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\firmwares\stepper\stepper.h</FilePath>
+              <FilePath>.\drivers\stepper\stepper.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>firmwares/queue</GroupName>
-          <Files>
-            <File>
-              <FileName>queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmwares\queue\queue.c</FilePath>
-            </File>
-            <File>
-              <FileName>queue.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\firmwares\queue\queue.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>firmwares/uart0</GroupName>
+          <GroupName>drivers/uart0</GroupName>
           <Files>
             <File>
               <FileName>uart0.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\firmwares\uart0\uart0.c</FilePath>
+              <FilePath>.\drivers\uart0\uart0.c</FilePath>
             </File>
             <File>
               <FileName>uart0.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\firmwares\uart0\uart0.h</FilePath>
+              <FilePath>.\drivers\uart0\uart0.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>firmwares/lcd</GroupName>
+          <GroupName>drivers/lcd</GroupName>
           <Files>
             <File>
               <FileName>lcd_4bit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\firmwares\lcd\lcd_4bit.c</FilePath>
+              <FilePath>.\drivers\lcd\lcd_4bit.c</FilePath>
             </File>
             <File>
               <FileName>lcd_4bit.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\firmwares\lcd\lcd_4bit.h</FilePath>
+              <FilePath>.\drivers\lcd\lcd_4bit.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>firmwares/timer</GroupName>
+          <GroupName>drivers/timer</GroupName>
           <Files>
             <File>
               <FileName>pit.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\firmwares\timer\pit.h</FilePath>
+              <FilePath>.\drivers\timer\pit.h</FilePath>
             </File>
             <File>
               <FileName>pit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\firmwares\timer\pit.c</FilePath>
+              <FilePath>.\drivers\timer\pit.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>libs</GroupName>
+          <GroupName>utils/clock</GroupName>
           <Files>
             <File>
               <FileName>clock_functions.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\libs\clock_functions.c</FilePath>
+              <FilePath>.\utils\clock\clock_functions.c</FilePath>
             </File>
             <File>
               <FileName>clock_functions.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\libs\clock_functions.h</FilePath>
+              <FilePath>.\utils\clock\clock_functions.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>utils/queue</GroupName>
+          <Files>
+            <File>
+              <FileName>queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\utils\queue\queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>queue.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\utils\queue\queue.h</FilePath>
             </File>
           </Files>
         </Group>
