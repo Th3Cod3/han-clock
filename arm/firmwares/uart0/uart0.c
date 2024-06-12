@@ -30,6 +30,7 @@
  *
  *****************************************************************************/
 #include "uart0.h"
+#include <string.h>
 
 static queue_t TxQ, RxQ;
 
@@ -50,7 +51,7 @@ void uart0_init(void)
     UART0->C2 &= ~(UARTLP_C2_TE_MASK | UARTLP_C2_RE_MASK);
 
     // Set baud rate to baud rate
-    uint32_t divisor = 48000000UL / (9600 * 16);
+    uint32_t divisor = 48000000UL / (UART0_BAUD_RATE * 16);
     UART0->BDH = UART_BDH_SBR(divisor >> 8);
     UART0->BDL = UART_BDL_SBR(divisor);
 
@@ -113,6 +114,41 @@ void UART0_IRQHandler(void)
     }
 }
 
+/**
+ * This function returns the string when the string is complete
+ * A string is complete when a [\n|\r|\0] characters are received
+ */
+char* uart0_receive_string(char *str)
+{
+    static uint8_t i = 0;
+    static char str_buffer[MAX_RECEIVE_CHARS];
+    static bool str_end = false;
+
+    while (uart0_num_rx_chars_available())
+    {
+        str_buffer[i] = uart0_get_char();
+        uart0_put_char(str_buffer[i]);
+        if (str_buffer[i] == '\n' || str_buffer[i] == '\r' || str_buffer[i] == '\0')
+        {
+            str_buffer[i] = '\0';
+            str_end = true;
+            break;
+        }
+        i++;
+    }
+
+    if (str_end)
+    {
+        strncpy(str, str_buffer, MAX_RECEIVE_CHARS);
+        str_end = false;
+        i = 0;
+        str_buffer[0] = '\0';
+        return &str;
+    }
+
+    return NULL;
+}
+
 void uart0_send_string(char *str)
 {
     // Enqueue string
@@ -142,12 +178,12 @@ char uart0_get_char(void)
 {
     uint8_t c = 0;
 
-    // Wait for data.
-    // If waiting is not desired, call the function
-    // uart1_num_rx_chars_available() first to make sure data is available.
-    while (!q_dequeue(&RxQ, &c))
+    if (uart0_num_rx_chars_available() == 0)
     {
+        return 0;
     }
+
+    q_dequeue(&RxQ, &c);
 
     return (char)c;
 }
