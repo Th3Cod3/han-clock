@@ -106,6 +106,16 @@
 #define ENABLE_LCD_PORT_CLOCKS SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK
 /// \}
 
+#define LCD_UNKNOWN_MODE 0
+#define LCD_TEMP_MODE 1
+#define LCD_YEFRI_MODE 2
+#define LCD_RUBEN_MODE 3
+#define LCD_CHRIS_MODE 4
+#define LCD_SECONDS_MODE 5
+#define LCD_CONNECTING_UART0 6
+#define LCD_DATETIME_MODE 7
+
+extern uint8_t screen_mode;
 
 // ----------------------------------------------------------------------------
 // Function prototypes

@@ -1,14 +1,17 @@
 #include <stddef.h>
 #include "stepper.h"
+#include "hall.h"
 #include "pit.h"
 
 uint16_t count;
 uint8_t stepper_on;
+uint8_t steppers_mode = STEPPER_UNKNOWN_MODE;
+
 stepper_t stepper_motors[STEPPER_MOTOR_INSTANCES] = {
-	{21, SIM_SCGC5_PORTE_MASK, &PORTE->PCR[21], &GPIOE},
-	{22, SIM_SCGC5_PORTE_MASK, &PORTE->PCR[22], &GPIOE},
-	{23, SIM_SCGC5_PORTE_MASK, &PORTE->PCR[23], &GPIOE},
-	{29, SIM_SCGC5_PORTE_MASK, &PORTE->PCR[29], &GPIOE}};
+	{21, SIM_SCGC5_PORTE_MASK, &PORTE->PCR[21], GPIOE},
+	{22, SIM_SCGC5_PORTE_MASK, &PORTE->PCR[22], GPIOE},
+	{23, SIM_SCGC5_PORTE_MASK, &PORTE->PCR[23], GPIOE},
+	{29, SIM_SCGC5_PORTE_MASK, &PORTE->PCR[29], GPIOE}};
 
 inline void stepper_init(void)
 {
@@ -16,7 +19,7 @@ inline void stepper_init(void)
 	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
 
 	PORTE->PCR[20] = PORT_PCR_MUX(1);
-	GPIOE->PDDR |= MASK(20);
+	GPIOE->PDDR |= (1 << 20);
 
 	for (int i = 0; i < STEPPER_MOTOR_INSTANCES; i++)
 	{
@@ -26,12 +29,12 @@ inline void stepper_init(void)
 		}
 
 		SIM->SCGC5 |= stepper_motors[i].scgc5_mask;
-		stepper_motors[i]->PCR = PORT_PCR_MUX(1);
-		stepper_motors[i]->GPIO->PDDR |= MASK(stepper_motors[i].pin);
+		*(stepper_motors[i].PCR) = PORT_PCR_MUX(1);
+		stepper_motors[i].GPIO->PDDR |= (1 << stepper_motors[i].pin);
 	}
 }
 
-void refactor(void)
+void stepper_tick(void)
 {
 	switch (stepper_on)
 	{
@@ -39,11 +42,10 @@ void refactor(void)
 	case STEPPER_K_SECONDS:
 	case STEPPER_M_SECONDS:
 	case STEPPER_G_SECONDS:
-		stepper_motors[stepper_on]->GPIO->PTOR = MASK(stepper_motors[stepper_on].pin);
+		stepper_motors[stepper_on].GPIO->PTOR = MASK(stepper_motors[stepper_on].pin);
 		break;
 
 	default:
-		count = 0;
 		stepper_on = STEPPER_NO_STEPPER;
 		return;
 	}
@@ -51,7 +53,7 @@ void refactor(void)
 
 void calibrate(void)
 {
-	while (!(PTD->PDIR & MASK(4)))
+	while (hall_state(STEPPER_SECONDS))
 	{
 	} // Testfunction (release sensor)
 
@@ -92,13 +94,17 @@ void sync(void)
 	} while (!(set_time == timestamp));
 }
 
-void add_time(uint32_t current_time, uint32_t add_seconds)
+/**
+ * @param current_time 
+ * @param seconds second to add
+ */
+void add_time(uint32_t current_time, uint32_t seconds)
 {
 	// calculating how many ticks each stepper needs
-	int add_seconds = (current_time % 1000) + (add_seconds % 1000);
-	int add_k_seconds = (current_time % 1000000) / 1000 + (add_seconds % 1000000) / 1000;
-	int add_m_seconds = (current_time % 1000000000) / 1000000 + (add_seconds % 1000000000) / 1000000;
-	int add_g_seconds = (current_time % 1000000000000) / 1000000000 + (add_seconds % 1000000000000) / 1000000000;
+	uint32_t add_seconds = (current_time % 1000) + (seconds % 1000);
+	uint32_t add_k_seconds = (current_time % 1000000) / 1000 + (seconds % 1000000) / 1000;
+	uint32_t add_m_seconds = (current_time % 1000000000) / 1000000 + (seconds % 1000000000) / 1000000;
+	uint32_t add_g_seconds = (current_time % 1000000000000) / 1000000000 + (seconds % 1000000000000) / 1000000000;
 
 	// when the count is higher than 1000 at each stepper make sure to add 1 to the following
 	if (add_seconds >= 1000)

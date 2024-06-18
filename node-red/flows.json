@@ -8,6 +8,54 @@
         "env": []
     },
     {
+        "id": "05a693f34de3daf3",
+        "type": "group",
+        "z": "6766c019f9ae92fb",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "f609a9672d703608",
+            "7dac242cd011c60e",
+            "9ced80d16c9798fa",
+            "46edfb39a45d0c4d",
+            "492215d2a13b0b7f"
+        ],
+        "x": 634,
+        "y": 259,
+        "w": 172,
+        "h": 262
+    },
+    {
+        "id": "e8a2d90067a92755",
+        "type": "group",
+        "z": "6766c019f9ae92fb",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "eece08573c38b673",
+            "ad869f8dcb0b780d",
+            "a913bfd58d79044a"
+        ],
+        "x": 634,
+        "y": 539,
+        "w": 172,
+        "h": 162
+    },
+    {
         "id": "09b8bc23d7bb8d60",
         "type": "serial-port",
         "name": "",
@@ -145,6 +193,28 @@
         "className": ""
     },
     {
+        "id": "5edb2880a68b26b8",
+        "type": "ui_group",
+        "name": "Screen options",
+        "tab": "28d214a9fa178b04",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9c6b15859062a3ef",
+        "type": "ui_group",
+        "name": "Motor section",
+        "tab": "28d214a9fa178b04",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "d95dcac8c35c1820",
         "type": "debug",
         "z": "6766c019f9ae92fb",
@@ -157,29 +227,9 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1110,
-        "y": 160,
+        "x": 1250,
+        "y": 180,
         "wires": []
-    },
-    {
-        "id": "a6d4fa571099a3c5",
-        "type": "function",
-        "z": "6766c019f9ae92fb",
-        "name": "function 1",
-        "func": "msg.payload /= 10\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 860,
-        "y": 260,
-        "wires": [
-            [
-                "caceedcc56afffea"
-            ]
-        ]
     },
     {
         "id": "f256f9b077666f26",
@@ -217,9 +267,7 @@
             [
                 "42bbe52e606bcd5a"
             ],
-            [
-                "a6d4fa571099a3c5"
-            ]
+            []
         ]
     },
     {
@@ -382,59 +430,6 @@
         ]
     },
     {
-        "id": "caceedcc56afffea",
-        "type": "ui_gauge",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "group": "0187d50eb9522ce0",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "gtype": "gage",
-        "title": "gauge",
-        "label": "units",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "10000",
-        "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "diff": false,
-        "className": "",
-        "x": 1070,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "9d1e061c772390cb",
-        "type": "inject",
-        "z": "6766c019f9ae92fb",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "300",
-        "payloadType": "num",
-        "x": 870,
-        "y": 340,
-        "wires": [
-            [
-                "caceedcc56afffea"
-            ]
-        ]
-    },
-    {
         "id": "6e9bd346f4819ed8",
         "type": "serial in",
         "z": "6766c019f9ae92fb",
@@ -466,8 +461,8 @@
         "z": "6766c019f9ae92fb",
         "name": "",
         "serial": "09b8bc23d7bb8d60",
-        "x": 1120,
-        "y": 200,
+        "x": 1460,
+        "y": 360,
         "wires": []
     },
     {
@@ -488,6 +483,254 @@
             [
                 "f256f9b077666f26",
                 "59a7f13a13e303ff"
+            ]
+        ]
+    },
+    {
+        "id": "f609a9672d703608",
+        "type": "ui_button",
+        "z": "6766c019f9ae92fb",
+        "g": "05a693f34de3daf3",
+        "name": "",
+        "group": "5edb2880a68b26b8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Yefri",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "yefri",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 710,
+        "y": 300,
+        "wires": [
+            [
+                "1ac36e576c446e56",
+                "d95dcac8c35c1820"
+            ]
+        ]
+    },
+    {
+        "id": "7dac242cd011c60e",
+        "type": "ui_button",
+        "z": "6766c019f9ae92fb",
+        "g": "05a693f34de3daf3",
+        "name": "",
+        "group": "5edb2880a68b26b8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Chris",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "chris",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "1ac36e576c446e56"
+            ]
+        ]
+    },
+    {
+        "id": "9ced80d16c9798fa",
+        "type": "ui_button",
+        "z": "6766c019f9ae92fb",
+        "g": "05a693f34de3daf3",
+        "name": "",
+        "group": "5edb2880a68b26b8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Ruben",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "ruben",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 710,
+        "y": 380,
+        "wires": [
+            [
+                "1ac36e576c446e56"
+            ]
+        ]
+    },
+    {
+        "id": "46edfb39a45d0c4d",
+        "type": "ui_button",
+        "z": "6766c019f9ae92fb",
+        "g": "05a693f34de3daf3",
+        "name": "",
+        "group": "5edb2880a68b26b8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Temp",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "temp",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 710,
+        "y": 440,
+        "wires": [
+            [
+                "1ac36e576c446e56"
+            ]
+        ]
+    },
+    {
+        "id": "492215d2a13b0b7f",
+        "type": "ui_button",
+        "z": "6766c019f9ae92fb",
+        "g": "05a693f34de3daf3",
+        "name": "",
+        "group": "5edb2880a68b26b8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Datetime",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "datetime",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 720,
+        "y": 480,
+        "wires": [
+            [
+                "1ac36e576c446e56"
+            ]
+        ]
+    },
+    {
+        "id": "eece08573c38b673",
+        "type": "ui_button",
+        "z": "6766c019f9ae92fb",
+        "g": "e8a2d90067a92755",
+        "name": "",
+        "group": "9c6b15859062a3ef",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Sync",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "sync",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 710,
+        "y": 580,
+        "wires": [
+            [
+                "1ac36e576c446e56"
+            ]
+        ]
+    },
+    {
+        "id": "ad869f8dcb0b780d",
+        "type": "ui_button",
+        "z": "6766c019f9ae92fb",
+        "g": "e8a2d90067a92755",
+        "name": "",
+        "group": "9c6b15859062a3ef",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Calibrate",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "calibrate",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 720,
+        "y": 620,
+        "wires": [
+            [
+                "1ac36e576c446e56"
+            ]
+        ]
+    },
+    {
+        "id": "a913bfd58d79044a",
+        "type": "ui_dropdown",
+        "z": "6766c019f9ae92fb",
+        "g": "e8a2d90067a92755",
+        "name": "",
+        "label": "Ref time",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "9c6b15859062a3ef",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Yefri birthdate",
+                "value": "1",
+                "type": "str"
+            },
+            {
+                "label": "Ruben birthdate",
+                "value": "2",
+                "type": "str"
+            },
+            {
+                "label": "Chris birthdate",
+                "value": "3",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 720,
+        "y": 660,
+        "wires": [
+            [
+                "1ac36e576c446e56"
             ]
         ]
     }

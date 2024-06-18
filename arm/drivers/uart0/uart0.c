@@ -127,7 +127,6 @@ char* uart0_receive_string(char *str)
     while (uart0_num_rx_chars_available())
     {
         str_buffer[i] = uart0_get_char();
-        uart0_put_char(str_buffer[i]);
         if (str_buffer[i] == '\n' || str_buffer[i] == '\r' || str_buffer[i] == '\0')
         {
             str_buffer[i] = '\0';

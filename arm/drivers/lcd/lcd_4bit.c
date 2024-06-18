@@ -31,6 +31,8 @@
  *****************************************************************************/
 #include "lcd_4bit.h"
 
+uint8_t screen_mode = LCD_UNKNOWN_MODE;
+
 // TODO: implement with interrupts
 void delay_us(uint32_t d)
 {

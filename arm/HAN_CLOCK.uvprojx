@@ -340,7 +340,7 @@
               <MiscControls>-Wno-gnu-binary-literal -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-declaration-after-statement -Wno-unsafe-buffer-usage -Wno-extra-semi-stmt</MiscControls>
               <Define>CLOCK_SETUP=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\drivers\stepper;.\drivers\uart0;.\drivers\lcd;.\drivers\timer;.\utils\queue;.\utils\clock</IncludePath>
+              <IncludePath>.\src;.\drivers\stepper;.\drivers\uart0;.\drivers\lcd;.\drivers\timer;.\utils\queue;.\utils\clock;.\drivers\hall</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -478,6 +478,21 @@
               <FileName>queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\utils\queue\queue.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>drivers/hall</GroupName>
+          <Files>
+            <File>
+              <FileName>hall.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\hall\hall.c</FilePath>
+            </File>
+            <File>
+              <FileName>hall.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\drivers\hall\hall.h</FilePath>
             </File>
           </Files>
         </Group>

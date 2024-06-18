@@ -12,6 +12,11 @@
 #define STEPPER_G_SECONDS 3
 #define STEPPER_NO_STEPPER STEPPER_MOTOR_INSTANCES
 
+#define STEPPER_UNKNOWN_MODE 0
+#define STEPPER_CALIBRATION_MODE 1
+#define STEPPER_SYNC_MODE 2
+#define STEPPER_RUNNING_MODE 3
+
 /**
  * @brief this struct is used to drive the stepper motors steps.
  * For direction we use a common pin for all the motors
@@ -26,10 +31,12 @@ typedef struct
 
 extern uint16_t count;
 extern uint8_t stepper_on;
+extern uint8_t steppers_mode;
 
 extern stepper_t stepper_motors[STEPPER_MOTOR_INSTANCES];
 
 void stepper_init(void);
+void stepper_tick(void)
 void calibrate(void);
 void sync(void);
 void set_stepper_to(uint32_t stepper, uint32_t steps);
