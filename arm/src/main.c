@@ -1,5 +1,6 @@
 #include <MKL25Z4.h>
 #include <time.h>
+#include <stdlib.h>
 #include "clock_functions.h"
 #include "uart0.h"
 #include "lcd_4bit.h"
@@ -26,6 +27,7 @@ int main(void)
     uint32_t timeout = millis + 3000;
     uint8_t dots = 0;
     uint8_t times = 0;
+
     do
     {
         if (wait_millis(wait_to_update))
@@ -72,12 +74,27 @@ int main(void)
     char str[MAX_RECEIVE_CHARS];
 
     uint8_t prev_screen_mode = screen_mode;
+
+    wait_to_update = millis + 1000;
+    steppers_mode = STEPPER_CALIBRATION_MODE;
+    while (!wait_millis(wait_to_update))
+    {
+    }
+
+    char uart0_cmd[6];
+    char uart0_cmd_arg[MAX_RECEIVE_CHARS - 6];
     while (1)
     {
         prev_screen_mode = screen_mode;
         if (uart0_num_rx_chars_available())
         {
             uart0_receive_string(&str);
+            if (str[0] == '!')
+            {
+                strncpy(uart0_cmd, &str[1], 5);
+                strncpy(uart0_cmd_arg, &str[6], MAX_RECEIVE_CHARS - 6);
+                uart0_cmd[5] = '\0';
+            }
 
             if (!str[0])
             {
@@ -95,9 +112,9 @@ int main(void)
             {
                 screen_mode = LCD_DATETIME_MODE;
             }
-            else if (!strcmp(&str, "update-clock"))
+            else if (!strcmp(&uart0_cmd, "UTS:"))
             {
-                timestamp = 1718665080;
+                timestamp = atoi(uart0_cmd_arg);
             }
             else if (!strcmp(&str, "yefri"))
             {
@@ -134,14 +151,14 @@ int main(void)
                 lcd_clear();
                 lcd_print("Ruben Groenendijk");
                 lcd_set_cursor(0, 1);
-                lcd_print("30/12/1994");
+                lcd_print("15/04/2000");
                 break;
 
             case LCD_CHRIS_MODE:
                 lcd_clear();
                 lcd_print("Chris Salimans");
                 lcd_set_cursor(0, 1);
-                lcd_print("30/12/1994");
+                lcd_print("13/11/2002");
                 break;
             }
         }
@@ -161,6 +178,21 @@ int main(void)
             strftime(formatted_date, sizeof(formatted_date), "%H:%M:%S", tm_info);
             lcd_print("Time: ");
             lcd_print(formatted_date);
+        }
+
+        switch (steppers_mode)
+        {
+        case STEPPER_CALIBRATION_MODE:
+            calibrate();
+            steppers_mode = STEPPER_SYNC_MODE;
+            add_time(timestamp, timestamp - steppers_timestamp);
+            break;
+        case STEPPER_SYNC_MODE:
+            sync();
+            break;
+        case STEPPER_RUNNING_MODE:
+            stepper_running();
+            break;
         }
     }
 }
