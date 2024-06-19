@@ -1,6 +1,7 @@
 #ifndef STEPPER_H
 #define STEPPER_H
 #include <MKL25Z4.h>
+#include <stdbool.h>
 
 #define MASK(x) (1UL << (x))
 
@@ -29,17 +30,18 @@ typedef struct
     GPIO_Type *GPIO;
 } stepper_t;
 
-extern uint16_t count;
+extern uint32_t steppers_timestamp;
 extern uint8_t stepper_on;
 extern uint8_t steppers_mode;
 
 extern stepper_t stepper_motors[STEPPER_MOTOR_INSTANCES];
 
 void stepper_init(void);
-void stepper_tick(void)
-void calibrate(void);
-void sync(void);
+bool stepper_tick(void);
+bool calibrate(void);
+bool sync(void);
 void set_stepper_to(uint32_t stepper, uint32_t steps);
 void set_clock(uint32_t seconds);
 void add_time(uint32_t current_time, uint32_t add_seconds);
+void stepper_running(void);
 #endif // STEPPER_H

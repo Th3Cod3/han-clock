@@ -1,10 +1,10 @@
 #include "hall.h"
 
 hall_t hall_sensors[HALL_SENSOR_INSTANCES] = {
-    {0, SIM_SCGC5_PORTA_MASK, &PORTA->PCR[4], GPIOA},
-    {1, SIM_SCGC5_PORTA_MASK, &PORTA->PCR[5], GPIOA},
-    {2, SIM_SCGC5_PORTA_MASK, &PORTA->PCR[12], GPIOA},
-    {3, SIM_SCGC5_PORTD_MASK, &PORTD->PCR[4], GPIOD}};
+    {4, SIM_SCGC5_PORTA_MASK, &PORTA->PCR[4], GPIOA},
+    {5, SIM_SCGC5_PORTA_MASK, &PORTA->PCR[5], GPIOA},
+    {12, SIM_SCGC5_PORTA_MASK, &PORTA->PCR[12], GPIOA},
+    {4, SIM_SCGC5_PORTD_MASK, &PORTD->PCR[4], GPIOD}};
 
 void hall_init(void)
 {
@@ -28,5 +28,5 @@ bool hall_state(uint8_t sensor)
         return false;
     }
 
-    hall_sensors[sensor].GPIO->PDIR & (1 << hall_sensors[sensor].pin) ? 1 : 0;
+    return hall_sensors[sensor].GPIO->PDIR & (1 << hall_sensors[sensor].pin) ? 1 : 0;
 }
